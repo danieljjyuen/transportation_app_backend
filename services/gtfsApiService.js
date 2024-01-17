@@ -6,7 +6,6 @@ const headers = { 'x-api-key': API_KEY}
 
 //fetch from api and return data
 const testrun = async () => {
-    console.log('api key: ', API_KEY)
     try {
         axios.get(url, {headers})
             .then(response => console.log(response.data))

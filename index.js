@@ -3,7 +3,7 @@ const app = express()
 const { PORT } = require('./utils/config')
 const gtfsApiService = require('./services/gtfsApiService')
 
-gtfsApiService.testrun()
+gtfsApiService.fetchYellowLine()
 
 
 app.listen(PORT, () => {

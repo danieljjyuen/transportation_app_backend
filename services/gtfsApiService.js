@@ -16,6 +16,7 @@ const fetchApi = async (url) => {
         const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
           new Uint8Array(response.data)
         );
+        
         parseData(feed)
         //console.log(feed.entity[166])
         feed.entity.forEach((entity) => {

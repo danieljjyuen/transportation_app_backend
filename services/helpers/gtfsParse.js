@@ -2,6 +2,7 @@
 //date class uses milliseconds , multiply 1000 to use
 const fs = require('fs')
 const parseStops = require('./parseStops')
+const timeParse = require('./timeParse')
 
 
 
@@ -39,23 +40,28 @@ const parseData = async (data) => {
                 //stopid to fetch name of station
                 let stopId = stopTimeUpdate.stopId
                 let stopName = stopsMap[stopId]
-                if(stopName===undefined){
-                    console.log(stopId)
-                }
+
+                //check stopid that are not in stops.txt
+                // if(stopName===undefined){
+                //     console.log(stopId)
+                // }
+
+
                 //arrival time to station in seconds counting from jan 1st, 1970
                 let time = stopTimeUpdate.arrival.time.low
-
+                //parsed time into seconds till arrival
+                let parsedTime = timeParse(time)
                 //set up hashmap if it does not have station name 
                 if(!hashmap.get(routeId)[direction].has(stopName)){
                     hashmap.get(routeId)[direction].set(stopName,[])
                 }
                 //push in arrival time for trains to this particular station
-                hashmap.get(routeId)[direction].get(stopName).push(time)
+                hashmap.get(routeId)[direction].get(stopName).push(parsedTime)
             })
         }                 
     })
     //console.log(parseStops())
-    //console.log(hashmap)
+    //console.log(hashmap.get('N').N.get('36 St'))
     return hashmap
 }
 

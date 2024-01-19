@@ -3,7 +3,7 @@
 const fs = require('fs')
 const parseStops = require('./parseStops')
 const timeParse = require('./timeParse')
-const {parseTrips, getHeadSign} = require('./parseTrips')
+const parseTrips = require('./parseTrips')
 
 
 
@@ -26,7 +26,7 @@ const parseData = async (data) => {
             //routeId or the letter name of the train
             let routeId = entity.tripUpdate.trip.routeId
             let tripId = entity.tripUpdate.trip.tripId
-
+           
             //set up north/south direction and map into hashmap for each train
             if(!hashmap.has(routeId)){
                 //if hashmap does not have the routeId/train 
@@ -57,8 +57,8 @@ const parseData = async (data) => {
                 let parsedTime = timeParse(time)
                 
                 //get direction headsign
-                let headSign = getHeadSign(tripsMap, tripId) || tripId
-             
+                let headSign = tripsMap[tripId] || tripId
+                // console.log(headSign)
 
                 //set up hashmap if it does not have station name 
                 if(!hashmap.get(routeId)[direction].has(stopName)){
@@ -72,7 +72,7 @@ const parseData = async (data) => {
     })
     //console.log(parseStops())
     //console.log(hashmap.get('N').N.get('36 St'))
-    console.log(hashmap.get('N').N)
+    console.log(hashmap.get('R').N)
     return hashmap
 }
 

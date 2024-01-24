@@ -3,7 +3,15 @@ const GtfsRealtimeBindings = require('gtfs-realtime-bindings');
 const {
     API_KEY,
     YELLOW_LINE_API_KEY,
+    ORANGE_LINE_API_KEY,
+    BROWN_LINE_API_KEY,
+    LTRAIN_API_KEY,
+    NUMBER_API_KEY,
+    SIR_API_KEY,
+    GREEN_LINE_API_KEY,
+    BLUE_LINE_API_KEY,
 } = require('../utils/config');
+
 const { parseData } = require('./helpers/gtfsParse');
 const headers = { 'x-api-key': API_KEY}
 
@@ -17,14 +25,15 @@ const fetchApi = async (url) => {
           new Uint8Array(response.data)
         );
         
-        parseData(feed)
+        return parseData(feed)
+        
         //console.log(feed.entity[166])
-        feed.entity.forEach((entity) => {
-        //   if (entity.tripUpdate) {
-        //     console.log(entity.tripUpdate);
-        //   }
-        //    console.log(entity)
-        })
+        // feed.entity.forEach((entity) => {
+        // //   if (entity.tripUpdate) {
+        // //     console.log(entity.tripUpdate);
+        // //   }
+        // //    console.log(entity)
+        // })
 
         //console.log(feed.entity[0].tripUpdate.stopTimeUpdate[0].arrival.time.low)
     } catch (error) {
@@ -32,10 +41,38 @@ const fetchApi = async (url) => {
     }
 }
 
-const fetchYellowLine = () => {
-    fetchApi(YELLOW_LINE_API_KEY)
+const fetchYellowLine = async () => {
+    return await fetchApi(YELLOW_LINE_API_KEY)
+}
+const fetchOrangeLine = async () => {
+    return await fetchApi(ORANGE_LINE_API_KEY)
+}
+const fetchBrownLine = async () => {
+    return await fetchApi(BROWN_LINE_API_KEY)
+}
+const fetchLTrain = async () => {
+    return await fetchApi(LTRAIN_API_KEY)
+}
+const fetchNumberLine = async () => {
+    return await fetchApi(NUMBER_API_KEY)
+}
+const fetchSirLine = async () => {
+    return await fetchApi(SIR_API_KEY)
+}
+const fetchGreenLine = async () => {
+    return await fetchApi(GREEN_LINE_API_KEY)
+}
+const fetchBlueLine = async () => {
+    return await fetchApi(BLUE_LINE_API_KEY)
 }
 
 module.exports = {
-    fetchYellowLine
+    fetchYellowLine,
+    fetchOrangeLine,
+    fetchBrownLine,
+    fetchLTrain,
+    fetchNumberLine,
+    fetchSirLine,
+    fetchGreenLine,
+    fetchBlueLine
 }

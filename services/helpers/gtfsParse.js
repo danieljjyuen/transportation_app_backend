@@ -19,6 +19,7 @@ const parseData = async (data) => {
     //fs.writeFile('./text.txt', JSON.stringify(data), (err)=> {console.log(err)})
     
     data.entity.forEach(entity => {
+        //console.log(entity)
         //only work on tripUpdate of the data set
         if(entity.tripUpdate){
             //console.log(entity.tripUpdate.stopTimeUpdate[0])
@@ -28,17 +29,23 @@ const parseData = async (data) => {
             let tripId = entity.tripUpdate.trip.tripId
            
             //set up north/south direction and map into hashmap for each train
-            if(!hashmap.has(routeId)){
+            if(!(routeId in hashmap)){
                 //if hashmap does not have the routeId/train 
                 //then it adds in as key with map of stop: arrival time map
-                hashmap.set(routeId, {
-                    'S': new Map(),
-                    'N': new Map()
-                })              
+                hashmap[routeId] = {
+                    'S': {},
+                    'N': {}
+                }
+                            
                 //console.log(hashmap.get(routeId)[direction])
             }
             //get direction of train ex: north or south
-            let direction = entity.tripUpdate.trip.tripId.slice(-1)
+
+
+          
+            let direction = entity.tripUpdate.trip.tripId.split('.')
+            direction = direction[direction.length-1].substring(0,1)
+
             //get arrival time for each stop for this particular train
             entity.tripUpdate.stopTimeUpdate.forEach(stopTimeUpdate => {
                 //stopid to fetch name of station
@@ -52,27 +59,41 @@ const parseData = async (data) => {
 
 
                 //arrival time to station in seconds counting from jan 1st, 1970
+                if(stopTimeUpdate.arrival===null){
+                    //console.log(entity)
+                    return
+                }
+                
                 let time = stopTimeUpdate.arrival.time.low
                 //parsed time into seconds till arrival
                 let parsedTime = timeParse(time)
                 
                 //get direction headsign
-                let headSign = tripsMap[tripId] || tripId
+                let headSign = tripsMap[tripId] 
                 // console.log(headSign)
 
                 //set up hashmap if it does not have station name 
-                if(!hashmap.get(routeId)[direction].has(stopName)){
-
-                    hashmap.get(routeId)[direction].set(stopName,[headSign])
+                if(hashmap[routeId][direction]===undefined){
+                  
+                    hashmap[routeId][direction] = {}
+                    //console.log(entity)
+                }
+                if(!(stopName in hashmap[routeId][direction])) {
+                    hashmap[routeId][direction][stopName] = [headSign]
+                    
+                   
                 }
                 //push in arrival time for trains to this particular station
-                hashmap.get(routeId)[direction].get(stopName).push(parsedTime)
+                hashmap[routeId][direction][stopName].push(parsedTime)
+                
             })
         }                 
     })
     //console.log(parseStops())
     //console.log(hashmap.get('N').N.get('36 St'))
-    console.log(hashmap.get('R').N)
+    //console.log(hashmap.get('R').N)
+    console.log(hashmap)
+
     return hashmap
 }
 

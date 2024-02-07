@@ -50,7 +50,8 @@ const parseData = async (data) => {
             entity.tripUpdate.stopTimeUpdate.forEach(stopTimeUpdate => {
                 //stopid to fetch name of station
                 let stopId = stopTimeUpdate.stopId
-                let stopName = stopsMap[stopId] || stopId
+                //let stopName = stopsMap[stopId] || stopId
+                let stopName = stopsMap[stopId] || ''
 
                 //check stopid that are not in stops.txt
                 // if(stopName===undefined){
@@ -92,7 +93,7 @@ const parseData = async (data) => {
     //console.log(parseStops())
     //console.log(hashmap.get('N').N.get('36 St'))
     //console.log(hashmap.get('R').N)
-    console.log(hashmap)
+    //console.log(hashmap)
 
     return hashmap
 }

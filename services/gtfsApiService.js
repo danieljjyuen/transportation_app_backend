@@ -13,20 +13,26 @@ const {
 } = require('../utils/config');
 
 const { parseData } = require('./helpers/gtfsParse');
-const headers = { 'x-api-key': API_KEY}
-
+let headers = {
+    'x-api-key': API_KEY,
+    'Cache-Control': 'no-cache',
+    'Pragma': 'no-cache',
+    'Expires': '0',
+}
 //fetch from api and return data
 const fetchApi = async (url) => {
     try {
-        let response = await axios.get(url, {headers, responseType: 'arraybuffer' })
+        let response = await axios.get(`${url}?_=${Date.now()}`, {headers, responseType: 'arraybuffer' })
     
         //parsing data from api
         const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
           new Uint8Array(response.data)
         );
         
-        return parseData(feed)
-        
+        let parsedData = await parseData(feed)
+        console.log(new Date(), url,'--------------------')
+       
+        return parsedData
         //console.log(feed.entity[166])
         // feed.entity.forEach((entity) => {
         // //   if (entity.tripUpdate) {

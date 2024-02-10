@@ -4,7 +4,7 @@ const getYellowLine = async (req, res) => {
     try {
         let yellowLineData = await gtfsApiService.fetchYellowLine()
         //yellowLineData = Object.fromEntries(yellowLineData)
-        console.log(yellowLineData)
+        //console.log(yellowLineData)
         res.json(yellowLineData)
     } catch (error) {
         //console.log(error)

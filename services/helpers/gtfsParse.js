@@ -93,7 +93,7 @@ const parseData = async (data) => {
     //console.log(parseStops())
     //console.log(hashmap.get('N').N.get('36 St'))
     //console.log(hashmap.get('R').N)
-    //console.log(hashmap)
+    console.log(hashmap)
 
     return hashmap
 }

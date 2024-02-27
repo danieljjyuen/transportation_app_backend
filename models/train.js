@@ -5,19 +5,13 @@ const trainSchema = new mongoose.Schema({
         type:String,
         required: true
     },
-    southHeadSign: {
-        type: String,
-    },
-    northHeadSign: {
-        type: String,
-    },
     S: {
         type: Map,
-        of: [Number]
+        of: []
     },
     N: {
         type: Map,
-        of: [Number]
+        of: []
     }
 
 })

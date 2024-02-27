@@ -5,6 +5,7 @@ const gtfsApiService = require('./services/gtfsApiService')
 const gtfsRoutes = require('./routes/gtfsRoutes')
 const cors = require('cors')
 const { connect } = require('./db')
+const dataService = require('./services/storeData/dataService')
 
 app.use(cors())
 app.use('/api', gtfsRoutes)
@@ -20,7 +21,15 @@ connect()
         process.exit(1)
     })
 
+// let test = async () =>{ 
 
-// let data = gtfsApiService.fetchBlueLine()
+    dataService.initialization()
+    dataService.apiPolling()
+// let data = await gtfsApiService.fetchBlueLine()
+// storeData(data)
+// console.log('testing')
+//console.log(data)
 
-// console.log(data)
+// }
+
+// test()

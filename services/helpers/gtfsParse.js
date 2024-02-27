@@ -81,8 +81,6 @@ const parseData = async (data) => {
                 }
                 if(!(stopName in hashmap[routeId][direction])) {
                     hashmap[routeId][direction][stopName] = [headSign]
-                    
-                   
                 }
                 //push in arrival time for trains to this particular station
                 hashmap[routeId][direction][stopName].push(parsedTime)
@@ -93,7 +91,7 @@ const parseData = async (data) => {
     //console.log(parseStops())
     //console.log(hashmap.get('N').N.get('36 St'))
     //console.log(hashmap.get('R').N)
-    console.log(hashmap)
+    //console.log(hashmap)
 
     return hashmap
 }

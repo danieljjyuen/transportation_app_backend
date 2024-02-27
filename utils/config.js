@@ -2,6 +2,7 @@ require('dotenv').config()
 
 module.exports = {
     MONGODB_URI: process.env.MONGODB_URI,
+    MONGODB_URI_AUTH: process.env.MONGODB_URI_AUTH,
     PORT: process.env.PORT || 3000,
     API_KEY: process.env.API_KEY,
     YELLOW_LINE_API_KEY: process.env.YELLOW_LINE_API_KEY,

@@ -13,7 +13,8 @@ const getAllTrains = async (req, res, next) => {
 
 const getTrain = async(req, res, next) => {
     try {
-        const train = await Train.findOne({routeId: req.params.routeId})
+        let routeId = req.params.routeId.toUpperCase()
+        const train = await Train.findOne({routeId: routeId})
         res.json(train)
     }catch(error) {
         next
